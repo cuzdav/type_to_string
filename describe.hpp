@@ -1,5 +1,7 @@
 // Print types as strings, including functions, member 
 
+// Written by Chris Uzdavinis
+
 #include <type_traits>
 #include <typeinfo>
 #include <string>
