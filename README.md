@@ -22,5 +22,8 @@ int main() {
 Output is:
 
 ```
-pointer to member function of class 1X taking (pointer to array[10] of pointer to int, pointer to volatile pointer to const unsigned long long), and returning pointer to array[10] of pointer to int
+pointer to member function of class 1X taking (pointer to array[10] of pointer
+to int, pointer to volatile pointer to const unsigned long long), and returning
+pointer to array[10] of pointer to int
 ```
+(newlines added)
