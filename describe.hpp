@@ -345,12 +345,8 @@ std::string Describe<RetT(ClassT::*)(ArgsT...) const volatile && noexcept>::desc
 } // type_to_string::detail
 
 
-namespace type_to_string {
-  
 // entry point function
 template <typename T>
 std::string describe() {
     return detail::describe<T>();
-}
-
 }
