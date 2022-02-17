@@ -15,7 +15,7 @@ struct X {
 };
 
 int main() {
-    std::cout << type_to_string::describe<decltype(&X::f)>() << std::endl;
+    std::cout << describe<decltype(&X::f)>() << '\n';
 }
 ```
 
