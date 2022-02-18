@@ -6,7 +6,6 @@
 #include <typeinfo>
 #include <string>
 #include <utility>
-#include <iostream>
 
 namespace type_to_string::detail {
 
