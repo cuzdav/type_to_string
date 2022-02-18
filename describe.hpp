@@ -6,6 +6,7 @@
 #include <typeinfo>
 #include <string>
 #include <utility>
+#include <iostream>
 
 namespace type_to_string::detail {
 
@@ -209,10 +210,18 @@ std::string describe()
     }
 }
 
+struct Comma {
+    char const * sep = "";
+    std::string operator()(std::string const& str) {
+        return std::exchange(sep, ", ") + str;
+    }
+};
+
 template <typename RetT, typename... ArgsT> 
 std::string Describe<RetT(ArgsT...)>::describe() {
+    Comma comma;
     std::string result = "function taking (";
-    ((result += detail::describe<ArgsT>(", ")), ...);
+    ((result += comma(detail::describe<ArgsT>())), ...);
     return result + "), returning " + detail::describe<RetT>();
 }
 
@@ -222,12 +231,6 @@ std::string Describe<T (ClassT::*)>::describe() {
         " of type " + detail::describe<T>();
 }
 
-struct Comma {
-    char const * sep = "";
-    std::string operator()(std::string const& str) {
-        return std::exchange(sep, ", ") + str;
-    }
-};
 enum Qualifiers {NONE=0, CONST=1, VOLATILE=2, NOEXCEPT=4, LVREF=8, RVREF=16};
 
 template <typename RetT, typename ClassT, typename... ArgsT>
@@ -276,7 +279,6 @@ template <typename RetT, class ClassT, typename... ArgsT>
 std::string Describe<RetT(ClassT::*)(ArgsT...) const volatile noexcept>::describe() {
     return describeMemberPointer<RetT, ClassT, ArgsT...>(CONST | VOLATILE | NOEXCEPT);
 }
-
 template <typename RetT, class ClassT, typename... ArgsT> 
 std::string Describe<RetT(ClassT::*)(ArgsT...) &>::describe() {
     return describeMemberPointer<RetT, ClassT, ArgsT...>(LVREF);
